@@ -20,8 +20,8 @@ function Front (){
       body:JSON.stringify({income}),
     })
     .then(response=>response.send())
-    .then(data=>{
-      setTax(tax);
+    .then(response => {
+      response.setTax(tax);
     })
     .catch(error =>{
       console.error('Error:', error);
@@ -31,7 +31,8 @@ function Front (){
   
     const handleSubmit = () => {
         console.log(incomeRef.current.value);
-        setIncome(tax);
+        setIncome(incomeRef.current.value);
+        setTax(tax);
     };
    
 
