@@ -31,7 +31,7 @@ function Front (){
   
     const handleSubmit = () => {
         console.log(incomeRef.current.value);
-        setIncome(incomeRef.current.value);
+        setIncome(tax);
     };
    
 
