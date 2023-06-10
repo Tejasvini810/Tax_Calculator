@@ -1,32 +1,5 @@
 import React, { useState, useRef } from 'react';
-
-
-/*function useInput(defaultValue) {
-    const [value, setValue] = useState(defaultValue);
-    function onChange(e) {
-      setValue(e.target.value);
-    }
-    return {
-      value,
-      onChange,
-    };
-  }
-
-
-function Form(){
-    const validations = {
-        numeric: {
-            rule: () => /^\d+$/,
-            formatter(fieldName) {
-              return `${fieldName} should contain only numbers.`;
-            }
-          },
-
-}
-};
-
-*/
-
+const url = 'http://localhost:5000/postBody';
 
 
 
@@ -35,21 +8,30 @@ function Front (){
 
     const incomeRef = useRef();
     const [income, setIncome] = useState(0);
+    const[tax, setTax] = useState(0);
     
     const valueInput = () => {
         incomeRef.current.value();
     };    
 
+
+    fetch(url,{
+      method:'POST',
+      body:JSON.stringify({income}),
+    })
+    .then(response=>response.send())
+    .then(data=>{
+      setTax(tax);
+    })
+    .catch(error =>{
+      console.error('Error:', error);
+    });
     
 
-
-   
-  
   
     const handleSubmit = () => {
         console.log(incomeRef.current.value);
         setIncome(incomeRef.current.value);
-       console.log('value is:', incomeRef.current.value);
     };
    
 
@@ -67,13 +49,12 @@ function Front (){
              <div>
                 <h2>Value:{income}</h2>
              </div>
+             <div>
+              <h2>Tax: {tax}</h2>
+             </div>
 
              
              </div>
-             
-         
-
-             
     
    );
 
