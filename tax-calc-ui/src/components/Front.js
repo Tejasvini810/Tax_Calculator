@@ -1,41 +1,34 @@
 import React, { useState, useRef } from 'react';
 const url = 'http://localhost:5000/postBody';
 
-
-
 function Front (){
     
-
     const incomeRef = useRef();
     const [income, setIncome] = useState(0);
     const[tax, setTax] = useState(0);
-    
-    const valueInput = () => {
-        incomeRef.current.value();
-    };    
-
-
-    fetch(url,{
-      method:'POST',
-      body:JSON.stringify({income}),
-    })
-    .then(response=>response.send())
-    .then(response => {
-      response.setTax(tax);
-    })
-    .catch(error =>{
-      console.error('Error:', error);
-    });
-    
-
   
     const handleSubmit = () => {
         console.log(incomeRef.current.value);
+        fetch(url,{
+          method:"POST",
+          body:JSON.stringify({"income":incomeRef.current.value}),
+          headers: {
+            "content-type": "application/json"
+          }
+        })
+        .then(response=>{
+          console.log(response)
+          return response.json();
+        })
+        .then(data=>{
+          console.log(data)
+          setTax(data.tax);
+        })
+        .catch(error =>{
+          console.error('Error:', error);
+        });
         setIncome(incomeRef.current.value);
-        setTax(tax);
     };
-   
-
     
     return (
         <div>
