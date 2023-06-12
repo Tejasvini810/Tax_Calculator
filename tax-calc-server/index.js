@@ -1,42 +1,35 @@
 const { error } = require('console')
 const express = require('express')
+const cors = require("cors");
+const req = require('express/lib/request');
 const app = express()
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 const port = 5000
 
-
-//Express.js
-
-app.get('/getHello', function (req, res) {
-  console.log(req.query);
-  res.send(req.query);
-  //console.log(req.query.hello);
-})
-
-
-
-
-app.get('/setHello/:id', (req, res) => {
-  console.log(req.params)
-  res.send("Value is: " + req.params.id);
-})
-
-
-
 app.listen(port, function () {
   console.log(`Example app listening on port ${port}`)
 })
 
+app.use(
+  cors()
+)
+
+
+app.get('/hello', function (req, res) {
+  res.send({"hello" : "world"});
+})
 
 app.post('/postBody', (req, res) => {
 
   const income = req.body.income;
-
   function calculateIncomeTax(income) {
     let tax = 0;
-
-    if (income <= 30000) {
+    console.log(income)
+    console.log(typeof income)
+    if (income <= 300000
+      
+      ) {
       tax = 0;
     } else if (income > 300000 && income <= 600000) {
       tax = ((income - 300000) * 5.0) / 100;
@@ -51,11 +44,12 @@ app.post('/postBody', (req, res) => {
     }
     return tax;
   }
+  
   // Tax Calculation.
-  const tax = calculateIncomeTax(income);
-
+  const tax = calculateIncomeTax(parseInt(income));
 
   console.log(tax);
-  res.send({ "tax": tax })
+  res.send({ "tax": tax });
 
 })
+
