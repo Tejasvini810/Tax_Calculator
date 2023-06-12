@@ -27,9 +27,7 @@ app.post('/postBody', (req, res) => {
     let tax = 0;
     console.log(income)
     console.log(typeof income)
-    if (income <= 300000
-      
-      ) {
+    if (income <= 300000) {
       tax = 0;
     } else if (income > 300000 && income <= 600000) {
       tax = ((income - 300000) * 5.0) / 100;
@@ -52,4 +50,5 @@ app.post('/postBody', (req, res) => {
   res.send({ "tax": tax });
 
 })
+
 
